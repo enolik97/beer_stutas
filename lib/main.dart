@@ -50,8 +50,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<int> _miss = [0,0,0,0,0,0,0,0,0,0,0,0];
-  List<int> _hit = [0,0,0,0,0,0,0,0,0,0,0,0];
+  static final List<int> defaultIntList = [0,0,0,0,0,0,0,0,0,0,0,0];
+  List<int> _miss = List.from(defaultIntList);
+  List<int> _hit = List.from(defaultIntList);
 
   @override
   @protected
@@ -68,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _miss = [0,0,0,0,0,0,0,0,0,0,0,0];
-      _hit = [0,0,0,0,0,0,0,0,0,0,0,0];
+      _miss = List.from(defaultIntList);
+      _hit = List.from(defaultIntList);
       save();
     });
   }
@@ -77,13 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void load() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String>? missString = prefs.getStringList('missString');
-    if (missString != null) {
-      _miss = missString!.map((i) => int.parse(i)).toList();
-    }
+    _miss = missString?.map((i) => int.parse(i)).toList() ?? List.from(defaultIntList);
     final List<String>? hitString = prefs.getStringList('hitString');
-    if (hitString != null) {
-      _hit = hitString!.map((i) => int.parse(i)).toList();
-    }
+    _hit = hitString?.map((i) => int.parse(i)).toList() ?? List.from(defaultIntList);
     setState(() {});
   }
 
