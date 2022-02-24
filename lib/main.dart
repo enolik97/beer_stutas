@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Bierpong tracker',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.teal,
       ),
-      home: const MyHomePage(title: 'Beer tracker'),
+      home: const MyHomePage(title: 'Bierpong tracker'),
     );
   }
 }
@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static final List<int> defaultIntList = [0,0,0,0,0,0,0,0,0,0,0,0];
+  static final List<int> defaultIntList = List.filled(10, 0);
   List<int> _miss = List.from(defaultIntList);
   List<int> _hit = List.from(defaultIntList);
 
@@ -126,543 +126,58 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
+            for (var i = 0; i < _miss.length; i++)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
                 Text(
-                  '10 cups:',
-                  style: Theme.of(context).textTheme.headline4,
+                  '${i+1} cups:',
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
                   '\t',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
-                  '${_miss[0]}',
-                  style: Theme.of(context).textTheme.headline4,
+                  '${_miss[i]}',
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
                   '\t',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 IconButton(
                   icon: const Icon(Icons.remove, color: Colors.red,),
                   tooltip: 'Miss the cup',
                   onPressed: () {
                     setState(() {
-                      _miss[0]++;
+                      _miss[i]++;
                       save();
                     });
                   },
                 ),
                 Text(
                   '\t',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 IconButton(
                   icon: const Icon(Icons.add, color: Colors.green,),
                   tooltip: 'Hit the cup',
                   onPressed: () {
                     setState(() {
-                      _hit[0]++;
+                      _hit[i]++;
                       save();
                     });
                   },
                 ),
                 Text(
                   '\t',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
-                  '${_hit[0]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '09 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[1]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[1]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[1]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[1]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '08 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[2]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[2]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[2]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[2]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '07 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[3]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[3]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[3]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[3]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '06 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[4]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[4]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[4]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[4]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '05 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[5]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[5]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[5]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[5]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '04 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[6]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[6]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[6]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[6]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '03 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[7]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[7]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[7]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[7]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '02 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[8]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[8]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[8]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[8]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  '01 cups:',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_miss[9]}',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[9]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[9]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                Text(
-                  '${_hit[9]}',
-                  style: Theme.of(context).textTheme.headline4,
+                  '${_hit[i]}',
+                  style: Theme.of(context).textTheme.headline5,
                 ),
               ],
             ),
