@@ -78,9 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void load() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String>? missString = prefs.getStringList('missString');
-    _miss = missString?.map((i) => int.parse(i)).toList() ?? List.from(defaultIntList);
+    _miss = missString?.map((i) => int.parse(i)).toList() ??
+        List.from(defaultIntList);
     final List<String>? hitString = prefs.getStringList('hitString');
-    _hit = hitString?.map((i) => int.parse(i)).toList() ?? List.from(defaultIntList);
+    _hit = hitString?.map((i) => int.parse(i)).toList() ??
+        List.from(defaultIntList);
     setState(() {});
   }
 
@@ -126,61 +128,157 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                        alignment: Alignment.center,
+                        child: const Icon(
+                            IconData(0xe391, fontFamily: 'MaterialIcons'))),
+                  ),
+                  Expanded(
+                    flex: 7,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Miss',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 7,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Hit',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: const Icon(
+                          IconData(0xe418, fontFamily: 'MaterialIcons')),
+                    ),
+                  ),
+                ]),
             for (var i = 0; i < _miss.length; i++)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                Text(
-                  '${i+1} cups:',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Text(
-                  '${_miss[i]}',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.remove, color: Colors.red,),
-                  tooltip: 'Miss the cup',
-                  onPressed: () {
-                    setState(() {
-                      _miss[i]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add, color: Colors.green,),
-                  tooltip: 'Hit the cup',
-                  onPressed: () {
-                    setState(() {
-                      _hit[i]++;
-                      save();
-                    });
-                  },
-                ),
-                Text(
-                  '\t',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Text(
-                  '${_hit[i]}',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-              ],
-            ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${i + 1}',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 7,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.remove,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _miss[i]--;
+                                save();
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            '${_miss[i]}',
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _miss[i]++;
+                                save();
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 7,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(
+                            Icons.remove,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _hit[i]--;
+                              save();
+                            });
+                          },
+                        ),
+                        Text(
+                          '${_hit[i]}',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.add,
+                            color: Colors.green,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _hit[i]++;
+                              save();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${(_hit[i] == 0 || _hit[i] + _miss[i] == 0) ? 0 : (_hit[i] * 100 / (_hit[i] + _miss[i])).round()}',
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
           ],
         ),
       ),
